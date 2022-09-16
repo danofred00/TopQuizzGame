@@ -1,83 +1,30 @@
 
+
 import 'package:top_quizz_project/models/question.dart';
+import 'qb_categories/Html_Css.dart';
+import 'qb_categories/JavaScript.dart';
+import 'qb_categories/Cpp.dart';
+import 'qb_categories/C.dart';
+import 'qb_categories/Animees.dart';
 
 class QuestionBank {
 
-  QuestionBank();
+  final String category;
+  QuestionBank({this.category = 'html_css'});
 
-  List<Question> getQuestions() {
+  List<Question>? getQuestions() {
     
-    return [
-      Question('Quelle propriete CSS pouvons nous utiliser pour changer la couleur d\'un texte ?', 
-      'color', 
-      'font-color', 
-      'text-color', 
-      'background-color', 
-      1),
+    // list availiable categories
+    Map<String, List<Question>> availiable_categories = {
+      'html_css': Qb_HTML_CSS().get(),
+      'cpp': Qb_CPP().get(),
+      'c': Qb_C().get(),
+      'animees': Qb_Animmees().get(),
+      'javascript': Qb_JavaScript().get()
+    };
 
-      Question('Quelle propriete CSS pouvons nous utiliser pour modifier l\'alignement d\'un texte ?', 
-      'align', 
-      'font-align', 
-      'text-align', 
-      'Aucun choix correct', 
-      3),
-
-      Question('Quelle est la bonne syntaxe pour souligner un paragraphe ?', 
-      'p .one { text-decoration: underline }', 
-      'p { text-decoration: underline }', 
-      'p .one { text-decoration: overline }', 
-      'p { text-decoration: overline }', 
-      2),
-
-      Question('Quelle est la bonne syntaxe pour mettre en gras un paragraphe ?', 
-      'p { font-weight: bold }', 
-      'p .one { font-weight: bold }', 
-      'p { text-weight: bold }', 
-      'p .one { text-weight: bold }', 
-      1),
-
-      Question('Quelle propriete CSS pouvons nous utiliser pour changer la taille d\'un texte ?', 
-      'text-size', 
-      'font-size', 
-      'size', 
-      'Aucun choix correct', 
-      2),
-
-      Question('La propriete padding sert a modifier ... d\'un element.', 
-      'les marges exterieures', 
-      'les bordures', 
-      'la taille', 
-      'les marges interieures', 
-      4),
-
-      Question('La propriete margin sert a modifier ... d\'un element.', 
-      'les marges exterieures', 
-      'les bordures', 
-      'la taille', 
-      'les marges interieures', 
-      1),
-
-      Question("Comment changer l'arriere plan d'un element html ?", 
-      'element { background-image: lien_image; }', 
-      'element { background-image: uri("lien_image"); }', 
-      'element { background-image: url("lien_image"); }', 
-      'element { background-image: http(lien_image); }', 
-      3),
-
-      Question('Quelle propriete CSS pouvons nous utiliser pour changer la largeur d\'un element html ?', 
-      'width', 
-      'height', 
-      'border', 
-      'Aucun choix correct', 
-      1),
-
-      Question('Choisir la syntaxe correcte', 
-      '<style src="style.css"></style>', 
-      '<style href="style.css"></style>', 
-      '<link rel="stylesheet" href="style.css" />', 
-      '<style src="style.css" />', 
-      3),
-      
-    ];
+    if (availiable_categories.containsKey(this.category)) {
+      return availiable_categories[this.category];
+    } else return [];
   }
 }

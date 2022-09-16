@@ -39,7 +39,9 @@ class _QuizzPageState extends State<QuizzPage> {
     user = widget.user;
 
     // shuffle the list
+    // limit the question bank to question_count of the user
     questionBank = QuestionBank().getQuestions();
+    questionBank = questionBank.getRange(0, user.question_count).toList();
     questionBank.shuffle();
 
     print(user);

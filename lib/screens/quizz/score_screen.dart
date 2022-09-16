@@ -32,7 +32,7 @@ class _ScorePageState extends State<ScorePage> {
     super.initState();
 
     user = widget.user;
-    rank_toString = Rank(user.score, QuestionBank().getQuestions().length).get();
+    rank_toString = Rank(user.score, user.question_count).get();
   }
 
   @override
@@ -67,8 +67,8 @@ class _ScorePageState extends State<ScorePage> {
                       child: RichText(text: TextSpan(
                         children: [
                           TextSpan(text: 'Username: ${user.name} \n'),
-                          TextSpan(text: 'Score : ${user.score} \n'),
-                          TextSpan(text: 'Rank : $rank_toString \n')
+                          TextSpan(text: 'Score : ${user.score} / ${user.question_count} \n'),
+                          TextSpan(text: 'Rank : ${rank_toString.toUpperCase()} \n')
                         ],
                         style: TextStyle(fontSize: 30)
                       ))

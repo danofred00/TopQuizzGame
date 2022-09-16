@@ -21,7 +21,7 @@ class QuizzPage extends StatefulWidget {
 
 class _QuizzPageState extends State<QuizzPage> {
 
-  List<Question> questionBank = <Question>[];
+  List<Question>? questionBank = <Question>[];
   String apptitle = '';
   User user = User('', 0);
   int score = 0;
@@ -41,15 +41,15 @@ class _QuizzPageState extends State<QuizzPage> {
     // shuffle the list
     // limit the question bank to question_count of the user
     questionBank = QuestionBank().getQuestions();
-    questionBank = questionBank.getRange(0, user.question_count).toList();
-    questionBank.shuffle();
+    questionBank = questionBank!.getRange(0, user.question_count).toList();
+    questionBank!.shuffle();
 
     print(user);
   }
 
   // this function is called when the user clic on button
   void onPressed(int val) {
-    if (val == questionBank[current].answer_index) {
+    if (val == questionBank![current].answer_index) {
       // show modal sheet bottom
       _showModalBottomSheet('Bonne Reponse');
       // increment the user's score
@@ -62,11 +62,11 @@ class _QuizzPageState extends State<QuizzPage> {
     }
 
     // going at the next question
-    if (current < questionBank.length - 1) {
+    if (current < questionBank!.length - 1) {
       setState(() {
         current++;
       });
-    } else if (current+1 == questionBank.length) {
+    } else if (current+1 == questionBank!.length) {
       
       // if the current question is the lasted
       // we print the message
@@ -177,7 +177,7 @@ class _QuizzPageState extends State<QuizzPage> {
               child: Card(
                 elevation: 2.0,
                 color: Colors.grey[100],
-                child: QuizzQuestionButton(questionBank[current].question),
+                child: QuizzQuestionButton(questionBank![current].question),
               ),
             ),
 
@@ -188,16 +188,16 @@ class _QuizzPageState extends State<QuizzPage> {
                 children: [
                   Card(
                       child: QuizzAnswerButton(
-                          questionBank[current].answer1, onPressedButton1)),
+                          questionBank![current].answer1, onPressedButton1)),
                   Card(
                       child: QuizzAnswerButton(
-                          questionBank[current].answer2, onPressedButton2)),
+                          questionBank![current].answer2, onPressedButton2)),
                   Card(
                       child: QuizzAnswerButton(
-                          questionBank[current].answer3, onPressedButton3)),
+                          questionBank![current].answer3, onPressedButton3)),
                   Card(
                       child: QuizzAnswerButton(
-                          questionBank[current].answer4, onPressedButton4))
+                          questionBank![current].answer4, onPressedButton4))
                 ],
               ),
             )

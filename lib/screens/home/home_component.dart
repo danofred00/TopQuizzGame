@@ -19,6 +19,9 @@ class MyHomeBody extends StatelessWidget {
   int min_question_count = 5;
   int max_question_count = QuestionBank().getQuestions()!.length;
 
+  // category input vars
+  String current_category = 'html_css';
+
   // local variables
   String appDescription = "Une superbe application de quizz juste pour vous.";
   String tmp_txt = "Entrez votre nom pour continuer.";
@@ -45,7 +48,7 @@ class MyHomeBody extends StatelessWidget {
 
   // Go at the next Screen
   void changeToQuizzScreen() {
-    onChangePage(1, User(username, 0, question_count: question_count));
+    onChangePage(1, User(username, 0, question_count: question_count, category: current_category));
     //startActivity(context, QuizzPage(apptitle: apptitle, user: User('$username', 0)));
   }
 
@@ -139,6 +142,14 @@ class MyHomeBody extends StatelessWidget {
                                   //onSaved: (value) => username = value,
                                 ),
 
+                                // category dropdown button
+                                DropdownButtonFormField<String>(
+                                  hint: Text('Votre Categorie'),
+                                  items: getCategoryDropDownItem(), 
+                                  onChanged: (value) => current_category = '$value',
+                                  icon: Icon(Icons.arrow_drop_down_sharp),
+                                ),
+
                                 SizedBox(
                                   height: 20,
                                 ),
@@ -174,5 +185,29 @@ class MyHomeBody extends StatelessWidget {
         )
       ],
     );
+  }
+
+  // create the map object to represent the DropDown List and his Values
+  Map<String, String> getCategoryDropDownList(){
+    return {
+      'html_css': 'HTML & CSS',
+      'javascript': 'JavaScript',
+      'c': 'C Language',
+      'cpp': 'CPP Language',
+      'animees': 'Mangas'
+    };
+  }
+
+  // dropdown menu item
+  List<DropdownMenuItem<String>> getCategoryDropDownItem(){
+
+    List<DropdownMenuItem<String>> list = [];
+    getCategoryDropDownList().values.toList().forEach((element) {
+      list.add(DropdownMenuItem(
+        child: Text(element),
+        value: getCategoryDropDownList()[element],));
+    });
+
+    return list;
   }
 }

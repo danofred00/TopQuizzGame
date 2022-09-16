@@ -1,5 +1,7 @@
+
 import 'package:flutter/material.dart';
 import 'package:top_quizz_project/functions.dart';
+import 'package:top_quizz_project/models/question_bank.dart';
 import 'package:top_quizz_project/models/user.dart';
 import 'package:top_quizz_project/screens/quizz/quizz_screen.dart';
 
@@ -12,6 +14,11 @@ class MyHomeBody extends StatelessWidget {
 
   MyHomeBody(this.apptitle, this.context, this.onChangePage, {super.key});
 
+  // question count
+  int question_count = 0;
+  int min_question_count = 5;
+  int max_question_count = QuestionBank().getQuestions().length;
+
   // local variables
   String appDescription = "Une superbe application de quizz juste pour vous.";
   String tmp_txt = "Entrez votre nom pour continuer.";
@@ -23,6 +30,11 @@ class MyHomeBody extends StatelessWidget {
   String form_error_empty = 'Champ de saisie vide';
   String form_error_ins = 'Trois (03) Caracteres minimum';
 
+  String form_hint_qlabel_text = "min=5 | max=99";
+  String form_label_qtext = 'Nombre de question';
+  String form_error_qempty = 'Champ de saisie vide';
+  String form_error_qins = '5 au minimum';
+
   // Validate Form function
   void validateForm() {
     if (_formKey.currentState!.validate()) {
@@ -33,7 +45,7 @@ class MyHomeBody extends StatelessWidget {
 
   // Go at the next Screen
   void changeToQuizzScreen() {
-    onChangePage(1, User(username, 0));
+    onChangePage(1, User(username, 0, question_count: question_count));
     //startActivity(context, QuizzPage(apptitle: apptitle, user: User('$username', 0)));
   }
 
@@ -84,23 +96,47 @@ class MyHomeBody extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: <Widget>[
+
+                                // username input 
                                 TextFormField(
                                   decoration: InputDecoration(
                                     labelText: form_label_text,
                                     hintText: form_hint_label_text,
+                                    icon: Icon(Icons.person)
                                   ),
                                   // When the text change
                                   onChanged: (value) => username = value,
                                   validator: (value) {
                                     if (value == null || value.isEmpty)
                                       return form_error_empty;
-                                    else if (username.length < 3)
+                                    else if (question_count < 3)
                                       return form_error_ins;
 
                                     return null;
                                   },
                                   //onSaved: (value) => username = value,
                                 ),
+
+                                // question count input
+                                TextFormField(
+                                  decoration: InputDecoration(
+                                    labelText: form_label_qtext,
+                                    hintText: form_hint_qlabel_text,
+                                    icon: Icon(Icons.numbers)
+                                  ),
+                                  // When the text change
+                                  onChanged: (value) => question_count = int.parse(value),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty)
+                                      return form_error_qempty;
+                                    else if (question_count < 5)
+                                      return form_error_qins;
+
+                                    return null;
+                                  },
+                                  //onSaved: (value) => username = value,
+                                ),
+
                                 SizedBox(
                                   height: 20,
                                 ),

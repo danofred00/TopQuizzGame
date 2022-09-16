@@ -3,6 +3,8 @@ import 'package:top_quizz_project/models/question.dart';
 
 class QuestionBank {
 
+  QuestionBank();
+
   List<Question> getQuestions() {
     
     return [

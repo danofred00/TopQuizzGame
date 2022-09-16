@@ -1,5 +1,4 @@
 
-
 import 'package:top_quizz_project/models/question.dart';
 import 'qb_categories/Html_Css.dart';
 import 'qb_categories/JavaScript.dart';
@@ -25,6 +24,8 @@ class QuestionBank {
 
     if (availiable_categories.containsKey(this.category)) {
       return availiable_categories[this.category];
-    } else return [];
+    } 
+    
+    return [];
   }
 }

@@ -17,7 +17,7 @@ class MyHomeBody extends StatelessWidget {
   // question count
   int question_count = 0;
   int min_question_count = 5;
-  int max_question_count = QuestionBank().getQuestions().length;
+  int max_question_count = QuestionBank().getQuestions()!.length;
 
   // local variables
   String appDescription = "Une superbe application de quizz juste pour vous.";

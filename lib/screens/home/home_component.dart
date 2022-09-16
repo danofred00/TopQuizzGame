@@ -102,8 +102,9 @@ class MyHomeBody extends StatelessWidget {
                                   decoration: InputDecoration(
                                     labelText: form_label_text,
                                     hintText: form_hint_label_text,
-                                    icon: Icon(Icons.person)
+                                    icon: Icon(Icons.person),
                                   ),
+                                  keyboardType: TextInputType.name,
                                   // When the text change
                                   onChanged: (value) => username = value,
                                   validator: (value) {
@@ -124,6 +125,7 @@ class MyHomeBody extends StatelessWidget {
                                     hintText: form_hint_qlabel_text,
                                     icon: Icon(Icons.numbers)
                                   ),
+                                  keyboardType: TextInputType.number,
                                   // When the text change
                                   onChanged: (value) => question_count = int.parse(value),
                                   validator: (value) {
